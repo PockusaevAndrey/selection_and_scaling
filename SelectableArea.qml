@@ -6,7 +6,8 @@ import QtQuick.Controls 2.5
 MouseArea{
     property color highlightColor: "blue"
     property Rectangle highlightItem: null;
-
+    property real lastWheelPosX: 0
+    property real lastWheelPosY: 0
     property point clickPos: "0,0"
 
     hoverEnabled: true
@@ -30,8 +31,14 @@ MouseArea{
             opacity: 0.35;
         }
     }
+//    onWheel: {
+//        if (wheel.angleDelta.y>0)
+//        { my_scale*=1.05; }
+//        else { my_scale*=0.95; }
+//        lastWheelPosX = wheel.x
+//        lastWheelPosY = wheel.y
 
-    onWheel: { if (wheel.angleDelta.y>0) { my_scale*=1.05; } else { my_scale*=0.95; } }// реакция на скролл
+//    }// реакция на скролл
 
     onPressed: {
         if (highlightItem !== null) {
@@ -61,7 +68,11 @@ MouseArea{
     onReleased: {
         // here you can add you zooming stuff if you want
         // highlightItem.destroy();
+        console.log(highlightItem.x, highlightItem.y, highlightItem.width, highlightItem.height);
         checkSelection(highlightItem.x, highlightItem.y, highlightItem.width, highlightItem.height);
         highlightItem.destroy();
+    }
+    onCheckSelection: {
+        console.log(highlightItem.x, highlightItem.y, highlightItem.width, highlightItem.height);
     }
 }

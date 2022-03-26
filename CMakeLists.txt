@@ -13,7 +13,7 @@ find_package(Qt5 COMPONENTS
         Concurrent
         REQUIRED)
 
-add_executable(selection_and_scaling main.cpp)
+add_executable(selection_and_scaling main.cpp qml.qrc)
 target_link_libraries(selection_and_scaling
         Qt5::Core
         Qt5::Quick

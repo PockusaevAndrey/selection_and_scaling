@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 SelectableElement {
+    id: base
     property int number: 0
     property bool select: false
 
@@ -16,11 +17,11 @@ SelectableElement {
         id: _rect_2
         anchors.fill: parent
         color:  "green"
-        scale:  selected ? 1.0 : 0.90
+        scale:  base.selected ? 1.0 : 0.90
         Text{
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            text: selected ?"selected":"not selected"
+            text: base.selected ?"selected":"not selected"
         }
     }
 }
