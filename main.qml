@@ -22,7 +22,12 @@ ApplicationWindow {
     //        contentX: column.x
     //        contentY: column.y
 
-
+ScaleDragArea{
+    target: column
+    anchors.fill: parent
+    targetScale: scaleRect
+    acceptedButtons: Qt.RightButton
+}
 
     SelectableArea {
         acceptedButtons: Qt.LeftButton
@@ -30,53 +35,12 @@ ApplicationWindow {
         id: area
         width: column.width
         height: column.height
-        MouseArea{
-            acceptedButtons: Qt.RightButton
-            anchors.fill: parent
-            hoverEnabled: true
-            drag.target: column
-            drag.axis: "XAndYAxis"
-            onWheel:{
-                //                my_scale *= wheel.angleDelta.y>0 ? 1.05 : 0.95
-                var origin = mapToItem(column, wheel.x, wheel.y)
-                var scale = (wheel.angleDelta.y < 0)? 0.9 : 1/0.9; //-- приближаем или отдаляем
 
-                //-- Рассчитываем на сколько сдвигать при маштабировании относительно текущей точки
-                var newX = origin.x * scaleRect.xScale;
-                var newY = origin.y * scaleRect.yScale;
-                column.x += (1-scale)*newX;
-                column.y += (1-scale)*newY;
-
-
-                scaleRect.xScale *=scale;
-                scaleRect.yScale *=scale;
-
-                console.log(scale)
-            }
-            onPositionChanged: {
-                if (drag.active){
-                    console.log("hovered", drag.minimumX)
-                }
-            }
-        }
         Column {
             id: column
 
             //                scale: my_scale
-            transform: [Scale {
-                    id: scaleRect
-
-                    //                        Behavior on xScale {
-                    //                            NumberAnimation {duration: 300}
-                    //                        }
-
-                    //                        Behavior on yScale {
-                    //                            NumberAnimation {duration: 300}
-                    //                        }
-
-
-                }
-            ]
+            transform: [Scale {id: scaleRect}]
 
             Row {
                 MyElement{

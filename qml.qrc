@@ -4,5 +4,6 @@
         <file>MyElement.qml</file>
         <file>SelectableElement.qml</file>
         <file>SelectableArea.qml</file>
+        <file>ScaleDragArea.qml</file>
     </qresource>
 </RCC>
